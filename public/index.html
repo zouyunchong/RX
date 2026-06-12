@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>瑞幸下单</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <h1>瑞幸下单</h1>
+        <p class="hero-copy">说一句需求，自动选门店、选商品并下单。</p>
+      </header>
+
+      <main class="layout">
+        <section class="panel panel-wide smart-panel">
+          <div class="panel-head">
+            <h2>智能下单</h2>
+            <span class="badge badge-ok">推荐</span>
+          </div>
+          <div class="smart-row">
+            <div class="voice-input-wrap">
+              <input id="smartPrompt" type="text" placeholder="例如：TCL国际E城 冰美式" />
+              <button id="voiceInputBtn" class="voice-button" type="button" aria-label="语音输入">语音</button>
+            </div>
+            <button id="smartCreateBtn" class="button">一键下单</button>
+          </div>
+          <div id="smartResult" class="result-card empty">输入一句话，我会自动查门店、查商品并创建订单。</div>
+        </section>
+
+        <details class="panel panel-wide manual-panel">
+          <summary>
+            <span class="summary-copy">
+              <strong>手动调整</strong>
+              <small>需要精细选择门店或商品时展开</small>
+            </span>
+          </summary>
+
+          <div class="manual-grid">
+            <section class="sub-panel">
+              <div class="panel-head">
+                <h2>位置与门店</h2>
+                <span id="healthBadge" class="badge badge-muted">检查 MCP 中…</span>
+              </div>
+
+              <div id="locationSummary" class="result-card empty">还没有定位，先点“获取当前位置”。</div>
+
+              <div class="row">
+                <button id="geoBtn" class="button button-ghost">获取当前位置</button>
+                <input id="storeKeyword" type="text" placeholder="门店名关键字，可不填" />
+                <button id="storeSearchBtn" class="button">搜索附近门店</button>
+              </div>
+
+              <div id="storeList" class="cards"></div>
+            </section>
+
+            <section class="sub-panel">
+              <div class="panel-head">
+                <h2>商品</h2>
+                <span id="selectionSummary" class="badge badge-muted">未选择门店</span>
+              </div>
+
+              <div class="row">
+                <input id="productQuery" type="text" placeholder="比如：冰美式" />
+                <button id="productSearchBtn" class="button">搜索商品</button>
+              </div>
+
+              <div id="productList" class="cards"></div>
+
+              <div class="product-actions">
+                <div class="quantity-field" aria-label="数量确认器">
+                  <span>数量</span>
+                  <div class="quantity-control">
+                    <button id="amountMinusBtn" class="quantity-button" type="button" aria-label="减少数量">-</button>
+                    <input id="amount" type="number" min="1" value="1" />
+                    <button id="amountPlusBtn" class="quantity-button" type="button" aria-label="增加数量">+</button>
+                  </div>
+                </div>
+                <button id="confirmProductBtn" class="button product-confirm-btn">确定</button>
+              </div>
+              <div id="productConfirmResult" class="confirm-result hidden"></div>
+            </section>
+          </div>
+        </details>
+
+        <section class="panel panel-wide">
+          <div class="panel-head">
+            <h2>以往订单</h2>
+            <button id="refreshOrdersBtn" class="button button-ghost">刷新</button>
+          </div>
+          <div id="orderList" class="order-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="orderTemplate">
+      <article class="order-card">
+        <div class="order-main">
+          <div class="order-title-row">
+            <h3 class="order-title"></h3>
+            <span class="order-time badge badge-muted"></span>
+          </div>
+          <p class="order-meta"></p>
+          <p class="order-id"></p>
+        </div>
+        <div class="order-actions"></div>
+      </article>
+    </template>
+
+    <div id="qrModal" class="qr-modal hidden" role="dialog" aria-modal="true" aria-label="订单二维码">
+      <div class="qr-dialog">
+        <img id="qrModalImage" class="qr-modal-image" alt="订单二维码" />
+        <p>请在微信内支付</p>
+      </div>
+    </div>
+
+    <script src="app.js" type="module"></script>
+  </body>
+  </html>

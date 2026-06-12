@@ -1,0 +1,17 @@
+[Unit]
+Description=Luckin Scheduler H5
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/luckin-scheduler-h5
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=4173
+EnvironmentFile=-/opt/luckin-scheduler-h5/.env
+ExecStart=/usr/bin/node /opt/luckin-scheduler-h5/server.mjs
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
